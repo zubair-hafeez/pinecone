@@ -14,7 +14,6 @@ DATA_DIR = "tmp"
 DATA_FILE = f"{DATA_DIR}/quora_duplicate_questions.tsv"
 DATA_URL = "https://qim.fs.quoracdn.net/quora_duplicate_questions.tsv"
 
-# Load API key from .env file
 load_dotenv()
 pc = Pinecone(api_key=os.environ.get("PINECONE_API_KEY"))
 
@@ -49,10 +48,8 @@ def read_tsv_file():
 def create_and_apply_model():
     model = SentenceTransformer("average_word_embeddings_glove.6B.300d")
 
-    # Convert question text to embeddings
     df["question_vector"] = df["question1"].apply(lambda x: model.encode(str(x)).tolist())
 
-    # Upsert into Pinecone
     vectors = list(zip(df["qid1"].astype(str), df["question_vector"]))
     pinecone_index.upsert(vectors)
 
@@ -76,7 +73,6 @@ def query_pinecone(search_term):
 
     return json.dumps(results_list)
 
-# Initialize Pinecone and Model
 delete_existing_pinecone_index()
 pinecone_index = create_pinecone_index()
 download_data()
