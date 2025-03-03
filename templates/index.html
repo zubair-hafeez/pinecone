@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Pinecone Customer Service Chat Bot</title>
+  <meta name="description" content="A machine learning app built with Python, Flask, and the Pinecone SDK.">
+  <meta name="author" content="Tyler Hawkins">
+
+  <meta property="og:title" content="Pinecone Customer Service Chat Bot">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="A machine learning app built with Python, Flask, and the Pinecone SDK.">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <h1>Pinecone Customer Service Chat Bot</h1>
+  <p>This machine learning app is built using <a href="https://www.python.org/doc/">Python</a>, <a href="https://flask.palletsprojects.com/en/2.0.x/">Flask</a>, and the <a href="https://www.pinecone.io/">Pinecone SDK</a>.</p>
+  <p>Enter a question below. Our machine learning algorithm will search for related questions that have been asked in the past.</p>
+  <p>This demo uses a <a href="https://qim.fs.quoracdn.net/quora_duplicate_questions.tsv">dataset of questions</a> from Quora.</p>
+  <form id="questionForm">
+    <label for="question">Question:</label>
+    <input id="question" name="question" autocomplete="off" />
+    <button type="submit" id="submitButton">Submit</button>
+  </form>
+  <div id="resultsContainer" style="display: none;">
+    <h2 id="resultsHeader">Search results:</h2>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" class="questionColumn">Question</th>
+          <th scope="col" class="scoreColumn">Match Score</th>
+        </tr>
+      </thead>
+      <tbody id="resultsTableBody"></tbody>
+    </table>
+  </div>
+  
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
